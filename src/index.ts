@@ -1,6 +1,7 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import namesRoutes from './routes/namesRoutes';
 
 dotenv.config();
 
@@ -12,12 +13,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Basic route
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Welcome to the TypeScript Express Server' });
-});
+// Routes
+app.use('/api/names', namesRoutes);
 
 // Start server
 app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-}); 
+    console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+    console.log(`📝 Names endpoint available at http://localhost:${port}/api/names`);
+});
